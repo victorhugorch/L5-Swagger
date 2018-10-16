@@ -4,9 +4,10 @@ namespace L5Swagger\Http\Controllers;
 
 use File;
 use Request;
-use Response;
 use L5Swagger\Generator;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Request as RequestSec;
 
 class SwaggerController extends BaseController
 {
@@ -58,7 +59,7 @@ class SwaggerController extends BaseController
         // Need the / at the end to avoid CORS errors on Homestead systems.
         $response = Response::make(
             view('l5-swagger::index', [
-                'secure' => Request::secure(),
+                'secure' => RequestSec::secure(),
                 'urlToDocs' => route('l5-swagger.docs', config('l5-swagger.paths.docs_json', 'api-docs.json')),
                 'operationsSorter' => config('l5-swagger.operations_sort'),
                 'configUrl' => config('l5-swagger.additional_config_url'),
